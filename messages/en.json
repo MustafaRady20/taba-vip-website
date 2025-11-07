@@ -1,0 +1,111 @@
+{
+  "header": {
+    "logo": "Taba VIP",
+    "contactBtn": "Contact Us"
+  },
+  "hero": {
+    "Name": "Taba",
+    "title": "Your Journey to Sinai Begins from here ...",
+    "subtitle": "Elevate your travel experience with VIP services - an exceptional journey from Taba Land Gateway",
+    "bookBtn": "Book Now",
+    "contactBtn": "Contact Us"
+  },
+  "services": {
+    "title": "Why Choose VIP Services?",
+    "subtitle": "We provide you with a luxurious and comfortable travel experience with premium services that save your time and ensure your comfort",
+    "service1": {
+      "title": "Personal Assistant",
+      "description": "A dedicated assistant to handle all procedures on your behalf"
+    },
+    "service2": {
+      "title": "Fast-Track Passport Control",
+      "description": "Through an exclusive and private counter"
+    },
+    "service3": {
+      "title": "Express Check-in and Payments",
+      "description": "No queues, no waiting at all"
+    },
+    "service4": {
+      "title": "Secure Online Payments",
+      "description": "We accept all cards and digital wallets"
+    },
+    "service5": {
+      "title": "Baggage Handling Service",
+      "description": "Free when booked in advance"
+    },
+    "service6": {
+      "title": "VIP Lounge Access",
+      "description": "Enjoy premium services in our luxury lounge"
+    }
+  },
+"Benefits": {
+  "title": "Benefits of Traveling with Taba VIP",
+  "items": {
+    "service1": {
+      "title": "Check-in and Fee Payment",
+      "text": "No queues or waiting at all."
+    },
+    "service6": {
+      "title": "Enjoy VIP Services",
+      "text": "Inside our luxurious lounge."
+    },
+    "service4": {
+      "title": "Secure Online Payment",
+      "text": "We accept all cards and digital wallets."
+    },
+    "fastProcedures": {
+      "title": "Fast and Smooth Procedures",
+      "text": "We handle all border crossing steps efficiently to save your time and effort."
+    },
+    "personalAssistant": {
+      "title": "Private Personal Assistant",
+      "text": "Enjoy a personal assistant accompanying you throughout your journey."
+    },
+    "transportation": {
+      "title": "Comfortable Private Transportation",
+      "text": "Travel in comfort with exclusive transport to and from the crossing point."
+    },
+    "service5": {
+      "title": "Luggage Handling Service",
+      "text": "Free when booked in advance."
+    },
+    "support": {
+      "title": "24/7 Customer Support",
+      "text": "Our team is always available to assist you before, during, and after your trip."
+    }
+  }
+}
+,
+  "WhyUs": {
+    "title": "Why Choose",
+    "highlight": "Taba VIP?",
+    "description": "At Taba VIP, we redefine the border-crossing experience. Our goal is to make your journey smooth, safe, and stress-free — so you can focus on enjoying your trip.",
+    "imageAlt": "Taba border VIP service",
+    "reasons": {
+      "trusted": {
+        "title": "Trusted by Hundreds of Travelers",
+        "text": "Our customers rely on us for fast, reliable, and comfortable travel through Taba crossing."
+      },
+      "vip": {
+        "title": "Personalized VIP Experience",
+        "text": "Every traveler gets one-to-one assistance to make the trip smooth and stress-free."
+      },
+      "multilingual": {
+        "title": "Professional Multilingual Team",
+        "text": "Our staff speaks multiple languages to ensure clear communication and excellent service."
+      }
+    }
+  },
+ "footer": {
+    "description": "Premium travel assistance and VIP border services at Taba.",
+    "contact": "Contact Us",
+    "quickLinks": "Quick Links",
+    "services": "Our Services",
+    "benefits": "Benefits",
+    "whyUs": "Why Us",
+    "bookNow": "Book Now",
+    "location": "Taba Border Crossing, Egypt",
+    "rights": "All rights reserved."
+  }
+
+}
