@@ -74,8 +74,18 @@
       "text": "Our team is always available to assist you before, during, and after your trip."
     }
   }
-}
-,
+},
+"testimonials":{
+    "title": "What Our Customers Say",
+    "add_review": "Add Your Review"
+  },
+  "reviewForm": {
+    "name": "Your Name",
+    "rating": "Your Rating",
+    "comment": "Your Comment",
+    "submit": "Submit Review"
+  }
+  ,
   "WhyUs": {
     "title": "Why Choose",
     "highlight": "Taba VIP?",

@@ -96,6 +96,17 @@
       }
     }
   },
+  "testimonials":{
+    "title": "ماذا يقول عملاؤنا",
+    "add_review": "أضف تقييمك"
+
+  },
+  "reviewForm": {
+    "name": "الاسم",
+    "rating": "تقييمك",
+    "comment": "تعليقك",
+    "submit": "إرسال التقييم"
+  },
   "footer": {
     "description": "خدمات سفر فاخرة ومساعدة VIP على معبر طابا الحدودي.",
     "contact": "تواصل معنا",

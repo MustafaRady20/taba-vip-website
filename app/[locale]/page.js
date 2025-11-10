@@ -10,6 +10,7 @@ import ServicesSection from "@/components/ServicesSection";
 import BenefitsSection from "@/components/BenefitsSection";
 import WhyUsSection from "@/components/WhyUsSection";
 import Footer from "@/components/Footer";
+import Testimonials from "@/components/Testimonials";
 
 export default function HomePage() {
   const t = useTranslations();
@@ -68,6 +69,7 @@ export default function HomePage() {
 
       <BenefitsSection t={t} />
       <WhyUsSection t={t} />
+      <Testimonials/>
       <Footer t={t} handleReservationClick={handleReservationClick} handleWhatsAppClick={handleWhatsAppClick} />
     </div>
   );
