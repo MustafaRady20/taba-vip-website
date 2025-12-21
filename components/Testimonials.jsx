@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Carousel } from "@/components/ui/carousel"
 import { Button } from "@/components/ui/button"
@@ -13,91 +13,147 @@ import {
 } from "@/components/ui/dialog"
 import ReviewForm from "@/components/ReviewForm"
 import { useTranslations, useLocale } from "next-intl"
+import { BASE_URL } from "@/constants"
 
-const testimonials = [
-  {
-    name: "Hazem VR",
-    reviews: "3 reviews",
-    text: "بصراحه بعد ان جربت الشراء ... شكراً جزيلاً ❤️",
-    time: "11 months ago",
-  },
-  {
-    name: "Mustafa Hassan",
-    reviews: "2 reviews",
-    text: "All books listed on their website are available and ready to be shipped once you order it...",
-    time: "11 months ago",
-  },
-  {
-    name: "Ahmed El-Sharkawy",
-    reviews: "2 reviews",
-    text: "High quality printing and good service. even I received wrong book but once called them...",
-    time: "10 months ago",
-  },
-  {
-    name: "Dasa Bazzan",
-    reviews: "8 reviews",
-    text: "Amazing quality, good and very quick delivery.",
-    time: "10 months ago",
-  },
-]
+/* ⭐ Rating Stars */
+function Stars({ rating }) {
+  return (
+    <div className="flex gap-1">
+      {[1, 2, 3, 4, 5].map((star) => (
+        <span 
+          key={star}
+          className={`text-lg ${star <= rating ? 'text-amber-400' : 'text-gray-300'}`}
+        >
+          ★
+        </span>
+      ))}
+    </div>
+  )
+}
 
 export default function Testimonials() {
   const t = useTranslations()
   const locale = useLocale()
   const isRTL = locale === "ar"
 
+  const [reviews, setReviews] = useState([])
   const [open, setOpen] = useState(false)
+  const [loading, setLoading] = useState(true)
+
+  const fetchReviews = async () => {
+    try {
+      const res = await fetch(`${BASE_URL}/reviews`, {
+        cache: "no-store",
+      })
+      const data = await res.json()
+      setReviews(Array.isArray(data) ? data : data.data)
+    } catch (err) {
+      console.error("Failed to load reviews", err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchReviews()
+  }, [])
 
   return (
-    <section className="py-12 bg-neutral-50">
-      <div className="container mx-auto px-4 text-center">
-        {/* Title and Button Row */}
-        <div
-          className={`flex items-center justify-center max-w-4xl mx-auto mb-8 ${
-            isRTL ? "flex-row-reverse" : ""
-          }`}
-        >
-          <h2 className="text-2xl font-semibold flex items-center gap-2">
-            <img src="/logo-icon.svg" alt="Logo" className="h-6 w-6" />
-            {t("testimonials.title")}
-          </h2>
+    <section className="py-20 bg-white">
+      <div className="container mx-auto px-4">
+        
+        {/* Header */}
+        <div className="text-center mb-16">
+          <div
+            className={`flex items-center justify-center gap-3 mb-4 ${
+              isRTL ? "flex-row-reverse" : ""
+            }`}
+          >
 
-  
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+              {t("testimonials.title")}
+            </h2>
+          </div>
+        
         </div>
 
-        {/* Carousel */}
-        <Carousel>
-          {testimonials.map((item, idx) => (
-            <div key={idx} className="min-w-[90%] md:min-w-[40%] lg:min-w-[25%] px-3">
-              <Card className="rounded-xl shadow-sm border bg-white">
-                <CardContent className="p-6 text-left">
-                  <div className="flex flex-col gap-2">
-                    <div>
-                      <p className="font-semibold text-lg">{item.name}</p>
-                      <p className="text-sm text-gray-500">{item.reviews}</p>
+        {/* Content */}
+        {loading ? (
+          <div className="text-center py-12">
+            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-600 border-r-transparent"></div>
+            <p className="mt-4 text-gray-500">Loading reviews...</p>
+          </div>
+        ) : reviews.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">No reviews yet</p>
+            <p className="text-gray-400 mt-2">Be the first to leave a review!</p>
+          </div>
+        ) : (
+          <Carousel>
+            {reviews.map((item) => (
+              <div
+                key={item._id}
+                className="min-w-[90%] md:min-w-[45%] lg:min-w-[30%] px-3"
+              >
+                <Card className="h-full border border-gray-200 rounded-2xl hover:shadow-lg transition-shadow duration-300">
+                  <CardContent
+                    className={`p-6 flex flex-col gap-4 ${
+                      isRTL ? "text-right" : "text-left"
+                    }`}
+                  >
+                    {/* Stars */}
+                    <Stars rating={item.rating} />
+
+                    {/* Comment */}
+                    <p className="text-gray-700 text-base leading-relaxed flex-grow">
+                      "{item.comment}"
+                    </p>
+
+                    {/* User Info */}
+                    <div className="pt-4 border-t border-gray-100">
+                      <p className="font-semibold text-gray-900">
+                        {item.userName}
+                      </p>
+                      <p className="text-sm text-gray-500 mt-1">
+                        {new Date(item.createdAt).toLocaleDateString(locale, {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </p>
                     </div>
-                    <p className="text-gray-700 text-sm">{item.text}</p>
-                    <p className="text-xs text-gray-400">{item.time}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          ))}
-        </Carousel>
-         <div className="mt-6">
+                  </CardContent>
+                </Card>
+              </div>
+            ))}
+          </Carousel>
+        )}
+
+        {/* Add Review Button */}
+        <div className="mt-12 text-center">
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-              <Button>{t("testimonials.add_review") || "Add Review"}</Button>
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-base font-medium transition-colors">
+                {t("testimonials.add_review") || "Add Review"}
+              </Button>
             </DialogTrigger>
 
             <DialogContent className="sm:max-w-md">
               <DialogHeader>
-                <DialogTitle>{t("testimonials.add_review") || "Add Review"}</DialogTitle>
+                <DialogTitle className="text-xl font-bold">
+                  {t("testimonials.add_review") || "Add Review"}
+                </DialogTitle>
               </DialogHeader>
-              <ReviewForm onSuccess={() => setOpen(false)} />
+
+              <ReviewForm
+                onSuccess={() => {
+                  setOpen(false)
+                  fetchReviews()
+                }}
+              />
             </DialogContent>
           </Dialog>
-         </div>
+        </div>
       </div>
     </section>
   )

@@ -79,11 +79,15 @@
     "title": "What Our Customers Say",
     "add_review": "Add Your Review"
   },
+ 
   "reviewForm": {
-    "name": "Your Name",
-    "rating": "Your Rating",
-    "comment": "Your Comment",
-    "submit": "Submit Review"
+    "name": "Name",
+    "rating": "Rating",
+    "comment": "Comment",
+    "submit": "Submit",
+    "loading": "Submitting...",
+    "success": "Thank you for your feedback!",
+    "error": "Please fill all fields"
   }
   ,
   "WhyUs": {

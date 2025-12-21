@@ -46,7 +46,7 @@ export default function Header({ isRTL, t, handleWhatsAppClick }) {
               onClick={handleWhatsAppClick}
               className={`px-5 md:px-6 py-2 md:py-2.5 rounded-full font-semibold text-sm md:text-base transition-all duration-300 ${
                 scrolled
-                  ? "bg-green-600 text-white hover:bg-green-700"
+                  ? "bg-blue-600 hover:bg-blue-700 text-white"
                   : "bg-white text-green-600 hover:bg-gray-100"
               }`}
             >

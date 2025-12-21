@@ -36,7 +36,7 @@ export default function HeroSection({ t, handleReservationClick, handleWhatsAppC
 
           <button
             onClick={handleWhatsAppClick}
-            className="relative group bg-green-600 hover:bg-green-700 text-white px-10 py-4 rounded-full font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl flex items-center justify-center gap-3"
+            className="relative group bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 rounded-full font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl flex items-center justify-center gap-3"
           >
             <Phone className="w-5 h-5" />
             <span>{t("hero.contactBtn")}</span>
