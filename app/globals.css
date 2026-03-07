@@ -1,0 +1,194 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dark: #9A7A30;
+    --dark: #0D0D0D;
+    --dark-2: #1A1510;
+    --dark-3: #231E16;
+    --muted: #8A7A60;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* Noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.35;
+  }
+}
+
+@layer components {
+  .gold-gradient {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+  }
+
+  .gold-text {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gold-border {
+    border: 1px solid rgba(201, 168, 76, 0.2);
+  }
+
+  .glass-dark {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(201, 168, 76, 0.12);
+  }
+
+  .section-label {
+    @apply inline-flex items-center gap-3 text-[11px] tracking-[4px] uppercase font-medium mb-5;
+    color: var(--gold);
+  }
+
+  .section-label::before,
+  .section-label::after {
+    content: '';
+    height: 1px;
+    width: 28px;
+    background: var(--gold);
+    opacity: 0.5;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-9 py-4 font-bold text-sm tracking-wider transition-all duration-300 rounded-[2px];
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: var(--dark);
+    box-shadow: 0 8px 30px rgba(201, 168, 76, 0.35);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(201, 168, 76, 0.5);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-9 py-4 font-medium text-sm tracking-wide transition-all duration-300 rounded-[2px];
+    color: var(--gold);
+    border: 1px solid rgba(201, 168, 76, 0.4);
+  }
+
+  .btn-ghost:hover {
+    background: rgba(201, 168, 76, 0.08);
+    border-color: var(--gold);
+    transform: translateY(-2px);
+  }
+
+  /* Reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Stagger children */
+  .stagger > * {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .stagger.visible > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0ms; }
+  .stagger.visible > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 80ms; }
+  .stagger.visible > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 160ms; }
+  .stagger.visible > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 240ms; }
+  .stagger.visible > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+  .stagger.visible > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 400ms; }
+  .stagger.visible > *:nth-child(7) { opacity: 1; transform: translateY(0); transition-delay: 480ms; }
+  .stagger.visible > *:nth-child(8) { opacity: 1; transform: translateY(0); transition-delay: 560ms; }
+}
+
+@layer utilities {
+  .gold-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to left, transparent, rgba(201, 168, 76, 0.35), transparent);
+  }
+
+  /* Grid background pattern */
+  .grid-pattern {
+    background-image:
+      linear-gradient(rgba(201, 168, 76, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201, 168, 76, 0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse 60% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+
+  /* Gallery pane expand */
+  .gallery-pane {
+    flex: 1;
+    transition: flex 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .gallery-pane:hover {
+    flex: 2.5;
+  }
+
+  /* Pulse animation for dot */
+  .animate-pulse-dot {
+    animation: pulseDot 2s ease infinite;
+  }
+
+  @keyframes pulseDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  /* Scroll line animation */
+  .animate-scroll-line {
+    animation: scrollLine 2s ease infinite;
+  }
+
+  @keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  /* Float in animation */
+  @keyframes bounceIn {
+    0% { opacity: 0; transform: scale(0.3); }
+    70% { transform: scale(1.05); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  .animate-bounce-in {
+    animation: bounceIn 0.8s 1.5s ease both;
+  }
+
+  /* Counter number animation */
+  @keyframes countUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-count-up {
+    animation: countUp 0.5s ease both;
+  }
+}
