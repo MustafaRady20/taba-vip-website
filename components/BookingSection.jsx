@@ -16,7 +16,7 @@ export default function BookingSection({ t }) {
       }} />
       
       <div className="gold-divider" />
-      <Booking t={t} selectedPackage={selectedPackage} />
+      <Booking t={t} selectedPackage={selectedPackage}   key={selectedPackage} />
     </>
   );
 }

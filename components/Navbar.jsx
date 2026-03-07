@@ -37,10 +37,12 @@ export default function Navbar({ t, locale }) {
       <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between">
         <Link href={`/${locale}`} className="flex items-center gap-3 no-underline" aria-label="Taba VIP">
           <div
-            className="w-12 h-12 rounded-full flex items-center justify-center font-black text-base shrink-0"
-            style={{ background: 'linear-gradient(135deg, #C9A84C, #9A7A30)', color: '#0D0D0D', boxShadow: '0 0 20px rgba(201,168,76,0.4)' }}
+            className="w-14 h-14 rounded-full flex items-center justify-center font-black text-base "
+            // style={{ background: 'linear-gradient(135deg, #C9A84C, #9A7A30)', color: '#0D0D0D', boxShadow: '0 0 20px rgba(201,168,76,0.4)' }}
             aria-hidden="true"
-          >VIP</div>
+          >
+            <img src="/images/logo.jpeg" alt="logo" />
+          </div>
           <div className="leading-tight">
             <span className="block text-lg font-bold tracking-wide" style={{ color: '#C9A84C' }}>
               {locale === 'ar' ? 'طابا VIP' : 'Taba VIP'}

@@ -47,9 +47,7 @@ export default function Booking({ t, selectedPackage = "" }) {
     notes: "",
   });
 
-  useEffect(() => {
-      setForm((prev) => ({ ...prev, package: selectedPackage }));
-  }, [selectedPackage]);
+
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -373,7 +371,7 @@ export default function Booking({ t, selectedPackage = "" }) {
                 <Field label={f.package}>
                   <select
                     name="package"
-                    value={form.package}
+                    value={form.package || selectedPackage}
                     onChange={set("package")}
                     style={{ ...inputStyle, background: "#1A1510" }}
                     onFocus={focusIn}
@@ -381,7 +379,7 @@ export default function Booking({ t, selectedPackage = "" }) {
                     disabled={loading}
                   >
                     {f.packageOptions.map((opt, i) => (
-                      <option key={i} value={f.packageValues[i]}>
+                      <option key={i} value={f.packageOptions[i]}>
                         {opt}
                       </option>
                     ))}
