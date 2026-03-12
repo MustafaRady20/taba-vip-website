@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { BASE_API_URL } from "../lib/constants";
 
-// ✅ Outside component — defined once, never recreated
 function Field({ label, error, children }) {
   return (
     <div>
@@ -29,11 +28,15 @@ export default function Booking({ t, selectedPackage = "" }) {
   const b = t.booking;
   const f = b.form;
   const isRTL = t.dir === "rtl";
+  const locale = t.lang === "ar" ? "ar" : "en";
 
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
   const [errors, setErrors] = useState({});
+
+  // Fetched package objects [{ _id, price, ar: { name }, en: { name } }]
+  const [packageList, setPackageList] = useState([]);
 
   const [form, setForm] = useState({
     guestName: "",
@@ -43,11 +46,24 @@ export default function Booking({ t, selectedPackage = "" }) {
     expectedArrivalDate: "",
     expectedArrivalTime: "",
     directionOfTravel: "",
-    package: selectedPackage,
+    package: selectedPackage, // stores _id
     notes: "",
   });
 
+  // Sync selectedPackage prop → form when parent selects a package
+  useEffect(() => {
+    if (selectedPackage) {
+      setForm((prev) => ({ ...prev, package: selectedPackage }));
+    }
+  }, [selectedPackage]);
 
+  // Fetch packages for the dropdown
+  useEffect(() => {
+    fetch(`${BASE_API_URL}/packages`)
+      .then((res) => res.json())
+      .then((data) => setPackageList(data))
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -66,6 +82,12 @@ export default function Booking({ t, selectedPackage = "" }) {
     setForm((prev) => ({ ...prev, [field]: e.target.value }));
     setErrors((prev) => ({ ...prev, [field]: "" }));
   };
+
+  // Derived: selected package object and total cost
+  const selectedPkg = packageList.find((p) => p._id === form.package) ?? null;
+  const companions = Math.max(0, Number(form.numberOfCompanions) || 0);
+  const totalPersons =  companions; // booker + companions
+  const totalCost = selectedPkg ? selectedPkg.price * totalPersons : null;
 
   const validate = () => {
     const e = {};
@@ -105,7 +127,7 @@ export default function Booking({ t, selectedPackage = "" }) {
         ...(form.directionOfTravel.trim() && {
           directionOfTravel: form.directionOfTravel.trim(),
         }),
-        ...(form.package && { package: form.package }),
+        ...(form.package && { package: form.package }), // sends _id
         ...(form.notes.trim() && { notes: form.notes.trim() }),
       };
 
@@ -367,24 +389,61 @@ export default function Booking({ t, selectedPackage = "" }) {
                   </select>
                 </Field>
 
-                {/* Package */}
+                {/* Package — built from fetched data, value = _id */}
                 <Field label={f.package}>
                   <select
                     name="package"
-                    value={form.package || selectedPackage}
+                    value={form.package}
                     onChange={set("package")}
                     style={{ ...inputStyle, background: "#1A1510" }}
                     onFocus={focusIn}
                     onBlur={focusOut}
                     disabled={loading}
                   >
-                    {f.packageOptions.map((opt, i) => (
-                      <option key={i} value={f.packageOptions[i]}>
-                        {opt}
+                    <option value="">
+                      {isRTL ? "— اختر باقة —" : "— Select a package —"}
+                    </option>
+                    {packageList.map((pkg) => (
+                      <option key={pkg._id} value={pkg._id}>
+                        {pkg[locale]?.name ?? pkg.en?.name} — ${pkg.price}
                       </option>
                     ))}
                   </select>
                 </Field>
+
+                {/* Total cost summary */}
+                {totalCost !== null && (
+                  <div
+                    className="flex items-center justify-between px-5 py-4 rounded-sm"
+                    style={{
+                      background: "rgba(201,168,76,0.07)",
+                      border: "1px solid rgba(201,168,76,0.25)",
+                    }}
+                  >
+                    <div className="flex flex-col gap-0.5">
+                      <span
+                        className="text-[11px] tracking-[2px] uppercase"
+                        style={{ color: "#8A7A60" }}
+                      >
+                        {isRTL ? "التكلفة الإجمالية" : "Total cost"}
+                      </span>
+                      <span
+                        className="text-xs"
+                        style={{ color: "rgba(255,255,255,0.4)" }}
+                      >
+                        {selectedPkg?.[locale]?.name} ×{" "}
+                        {totalPersons}{" "}
+                        {isRTL ? "شخص" : totalPersons === 1 ? "person" : "people"}
+                      </span>
+                    </div>
+                    <span
+                      className="text-2xl font-black"
+                      style={{ color: "#C9A84C" }}
+                    >
+                      ${totalCost}
+                    </span>
+                  </div>
+                )}
 
                 {/* Notes */}
                 <Field label={f.notes}>
