@@ -45,7 +45,7 @@ export default function Booking({ t, selectedPackage = "" }) {
     numberOfCompanions: "0",
     expectedArrivalDate: "",
     expectedArrivalTime: "",
-    directionOfTravel: "",
+    directionOfTravel: "وصول الي مصر",
     package: selectedPackage, // stores _id
     notes: "",
   });
