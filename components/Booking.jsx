@@ -62,7 +62,7 @@ export default function Booking({ t, selectedPackage = "" }) {
     fetch(`${BASE_API_URL}/packages`)
       .then((res) => res.json())
       .then((data) => setPackageList(data))
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   useEffect(() => {
@@ -86,8 +86,23 @@ export default function Booking({ t, selectedPackage = "" }) {
   // Derived: selected package object and total cost
   const selectedPkg = packageList.find((p) => p._id === form.package) ?? null;
   const companions = Math.max(0, Number(form.numberOfCompanions) || 0);
-  const totalPersons =  companions; // booker + companions
-  const totalCost = selectedPkg ? selectedPkg.price * totalPersons : null;
+  const totalPersons = companions;
+  const now = new Date();
+  const arrival = new Date(form.expectedArrivalDate);
+
+  const diffInDays = (arrival - now) / (1000 * 60 * 60 * 24);
+
+  let totalCost = null;
+
+  if (selectedPkg) {
+    const basePrice = selectedPkg.price * totalPersons;
+
+    if (diffInDays >= 5) {
+      totalCost = basePrice * 0.9; 
+    } else {
+      totalCost = basePrice;
+    }
+  }
 
   const validate = () => {
     const e = {};
@@ -175,9 +190,9 @@ export default function Booking({ t, selectedPackage = "" }) {
   const errStyle = { ...inputStyle, border: "1px solid rgba(231,76,60,0.5)" };
   const focusIn = (e) => (e.target.style.borderColor = "#C9A84C");
   const focusOut = (e) =>
-    (e.target.style.borderColor = errors[e.target.name]
-      ? "rgba(231,76,60,0.5)"
-      : "rgba(201,168,76,0.15)");
+  (e.target.style.borderColor = errors[e.target.name]
+    ? "rgba(231,76,60,0.5)"
+    : "rgba(201,168,76,0.15)");
 
   return (
     <section

@@ -30,8 +30,8 @@ export default function Packages({ t, onSelectPackage }) {
       titleAccent: 'باقتك المناسبة',
       desc: 'باقات مصممة لتناسب جميع احتياجاتك — احجز مسبقاً قبل أسبوع.',
       earlyBird: 'خصم الحجز المبكر',
-      earlyBirdDesc: 'احجز قبل أسبوع من موعد سفرك واحصل على أولوية في الخدمة',
-      childNote: '🎁 جميع الأطفال تحت سن 4 سنوات مجانًا',
+      earlyBirdDesc: 'احجز قبل أسبوع من موعد سفرك واحصل على خصم 10%',
+      childNote: '🎁 جميع الأطفال تحت سن سنتين مجانًا',
       bookBtn: 'احجز هذه الباقة',
       popular: 'الأكثر طلبًا',
     },
@@ -41,8 +41,8 @@ export default function Packages({ t, onSelectPackage }) {
       titleAccent: 'Perfect Package',
       desc: 'Tailored packages to suit all your needs — book a week early for priority service.',
       earlyBird: 'Early Bird Booking',
-      earlyBirdDesc: 'Book one week before your travel date and get priority service',
-      childNote: '🎁 All children under 4 years old travel free',
+      earlyBirdDesc: 'Book one week before your travel date and get 10% discount',
+      childNote: '🎁 All children under two years old travel free',
       bookBtn: 'Book This Package',
       popular: 'Most Popular',
     },
@@ -132,7 +132,7 @@ export default function Packages({ t, onSelectPackage }) {
                         <span className="text-[56px] font-black leading-none" style={{ color: pkg.popular ? '#C9A84C' : '#fff' }}>
                           {pkg.price}
                         </span>
-                        <span className="text-xl font-bold mb-2" style={{ color: 'rgba(255,255,255,0.4)' }}>$</span>
+                        <span className="text-2xl font-bold mb-2" style={{ color: 'rgba(255,255,255,0.4)' }}> {isRTL ? 'شيكل' : 'Shekel'}</span>
                         <span className="text-sm mb-2 font-light" style={{ color: 'rgba(255,255,255,0.35)' }}>
                           / {isRTL ? 'شخص' : 'person'}
                         </span>
