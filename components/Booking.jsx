@@ -420,7 +420,7 @@ export default function Booking({ t, selectedPackage = "" }) {
                     </option>
                     {packageList.map((pkg) => (
                       <option key={pkg._id} value={pkg._id}>
-                        {pkg[locale]?.name ?? pkg.en?.name} — ${pkg.price}
+                        {pkg[locale]?.name ?? pkg.en?.name} — {pkg.price}{isRTL ? ' شيكل ' : ' Shekel '}
                       </option>
                     ))}
                   </select>
@@ -455,7 +455,7 @@ export default function Booking({ t, selectedPackage = "" }) {
                       className="text-2xl font-black"
                       style={{ color: "#C9A84C" }}
                     >
-                      ${totalCost}
+                     {isRTL ? 'شيكل' : 'Shekel'}{totalCost}
                     </span>
                   </div>
                 )}
