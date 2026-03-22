@@ -132,7 +132,7 @@ export default function Packages({ t, onSelectPackage }) {
                         <span className="text-[56px] font-black leading-none" style={{ color: pkg.popular ? '#C9A84C' : '#fff' }}>
                           {pkg.price}
                         </span>
-                        <span className="text-2xl font-bold mb-2" style={{ color: 'rgba(255,255,255,0.4)' }}> {isRTL ? 'شيكل' : 'Shekel'}</span>
+                        <span className="text-2xl font-bold mb-2" style={{ color: 'rgba(255,255,255,0.4)' }}>  ₪</span>
                         <span className="text-sm mb-2 font-light" style={{ color: 'rgba(255,255,255,0.35)' }}>
                           / {isRTL ? 'شخص' : 'person'}
                         </span>
