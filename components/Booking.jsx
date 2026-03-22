@@ -455,7 +455,7 @@ export default function Booking({ t, selectedPackage = "" }) {
                       className="text-2xl font-black"
                       style={{ color: "#C9A84C" }}
                     >
-                     {isRTL ? 'شيكل' : 'Shekel'}{totalCost}
+                   {totalCost}  {isRTL ? ' شيكل'  : ' Shekel '}
                     </span>
                   </div>
                 )}
