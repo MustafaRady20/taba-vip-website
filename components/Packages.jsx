@@ -49,7 +49,7 @@ export default function Packages({ t, onSelectPackage }) {
   }[locale];
 
   useEffect(() => {
-    fetch(`${BASE_API_URL}/packages`)
+    fetch(`${BASE_API_URL}/tarvelpackages`)
       .then((res) => res.json())
       .then((data) => {
         setPackages(data);
